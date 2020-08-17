@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from '../util/axiosWithAuth';
+// import { useHistory } from "react-router-dom";
 
 const Login = (props) => {
-  
+
 const [credentials, setCredentials] = useState({
   username: '',
   password: ''
@@ -21,8 +22,9 @@ const login = e => {
   axiosWithAuth()
     .post('/login', credentials)
     .then(res => {
+      if (localStorage)
       localStorage.setItem('token', res.data.payload); //Puts in a key called token with a value of data.payload
-      props.history.push('/BubblePage'); // when you have handled the token, navigate to the BubblePage route
+      props.history.push('/colors'); // when you have handled the token, navigate to the BubblePage route
     })
     .catch(err => console.log(err));
 };
@@ -35,14 +37,14 @@ const login = e => {
         <input
           type='text'
           name='username'
-          label='Username'
+          placeholder='Username'
           value={credentials.username}
           onChange={handleChange}
         />
         <input
-          type='password'
+          type='text'
           name='password'
-          label='Password'
+          placeholder='Password'
           value={credentials.password}
           onChange={handleChange}
         />

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             {...rest}
             render={props => {
                 if(token) {
-                    return <BubblePage {...props} />
+                    return <Component {...props} />
                 } else {
                     return <Redirect to='/login' />;
                 }
